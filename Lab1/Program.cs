@@ -2,7 +2,7 @@
 
 namespace Lab1
 {
-    // 
+    // Variant 4
     // By Akhmetgaliev Eduard
     class Program
     {
