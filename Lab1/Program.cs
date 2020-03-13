@@ -24,7 +24,7 @@ namespace Lab1
             do {
                 Console.Write(inputText);
                 string line = Console.ReadLine();
-                if (Double.TryParse(line, out result)) flag = true;
+                if (double.TryParse(line, out result)) flag = true;
                 else Console.WriteLine("Ошибка: нужно ввести число.");
             } while (!flag);
 

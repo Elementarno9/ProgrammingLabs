@@ -11,6 +11,13 @@ namespace Lab2
 
         static void Main(string[] args)
         {
+            // TODO: part 2.2, 3.1, 3.2
+            // Choosing part
+            PieceFunction();
+        }
+
+        static void PieceFunction()
+        {
             double value = ReadDouble("Введите число: ");
             double result;
             if (ComputeFunction(value, out result)) Console.WriteLine("F({0}) = {1}", value, result);
@@ -25,7 +32,7 @@ namespace Lab2
             {
                 Console.Write(inputText);
                 string line = Console.ReadLine();
-                if (Double.TryParse(line, out result)) flag = true;
+                if (double.TryParse(line, out result)) flag = true;
                 else Console.WriteLine("Ошибка: нужно ввести число.");
             } while (!flag);
 
