@@ -39,15 +39,37 @@ namespace Lab6
             return Math.Abs(p2.X - p1.X) * Math.Abs(p2.Y - p1.Y);
         }
 
-        public bool Intersect(Rectangle2D other)
-        {
-            // Consider x1 > x2, y1 > y2 and etc.
-            double x1 = Math.Min(p1.X, p2.X), x2 = Math.Max(p1.X, p2.X),
-                y1 = Math.Min(p1.Y, p2.Y), y2 = Math.Max(p1.Y, p2.Y),
-                _x1 = Math.Min(other.p1.X, other.p2.X), _x2 = Math.Max(other.p1.X, other.p2.X),
-                _y1 = Math.Min(other.p1.Y, other.p2.Y), _y2 = Math.Max(other.p1.Y, other.p2.Y);
+        public Point GetLeftBottomPoint() => new Point(Math.Min(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
+        public Point GetLeftTopPoint() => new Point(Math.Min(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
+        public Point GetRightBottomPoint() => new Point(Math.Max(p1.X, p2.X), Math.Min(p1.Y, p2.Y));
+        public Point GetRightTopPoint() => new Point(Math.Max(p1.X, p2.X), Math.Max(p1.Y, p2.Y));
 
-            return (_x2 >= x1 && _x1 <= x2) && (_y2 >= y1 && _y1 <= y2);
+        public bool IsIntersected(Rectangle2D other)
+        {
+            Point lb1 = GetLeftBottomPoint(), rt1 = GetRightTopPoint(),
+                   lb2 = other.GetLeftBottomPoint(), rt2 = other.GetRightTopPoint();
+
+            return (rt2.X >= lb1.X && lb2.X <= rt1.X) && (rt2.Y >= lb1.Y && lb2.Y <= rt1.Y);
         }
+        public static Rectangle2D Intersect(Rectangle2D rect1, Rectangle2D rect2)
+        {
+            if (!rect1.IsIntersected(rect2)) return null;
+
+            Point lb1 = rect1.GetLeftBottomPoint(), rt1 = rect1.GetRightTopPoint(),
+                  lb2 = rect2.GetLeftBottomPoint(), rt2 = rect2.GetRightTopPoint();
+
+            return new Rectangle2D(new Point(Math.Max(lb1.X, lb2.X), Math.Max(lb1.Y, lb2.Y)), new Point(Math.Min(rt1.X, rt2.X), Math.Min(rt1.Y, rt2.Y)));
+        }
+
+        public static Rectangle2D SmallestContainer(Rectangle2D rect1, Rectangle2D rect2)
+        {
+
+            Point lb1 = rect1.GetLeftBottomPoint(), rt1 = rect1.GetRightTopPoint(),
+                   lb2 = rect2.GetLeftBottomPoint(), rt2 = rect2.GetRightTopPoint();
+
+            return new Rectangle2D(new Point(Math.Min(lb1.X, lb2.X), Math.Min(lb1.Y, lb2.Y)), new Point(Math.Max(rt1.X, rt2.X), Math.Max(rt1.Y, rt2.Y)));
+        }
+
+        public override string ToString() => $"({p1.X}, {p1.Y}, {p2.X}, {p2.Y})";
     }
 }

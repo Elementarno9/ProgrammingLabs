@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Lab6
 {
+    /*
+     * OX => right
+     * OY => top
+     */
     struct Point
     {
         public readonly double X;
