@@ -69,7 +69,6 @@ namespace Lab3._1
                 };
                 diags.ForEach((diag) => {
                     var list = diag.ToList();
-                    Console.WriteLine(string.Join(" ", list));
                     double sum = list.Sum();
                     if (list.Count > 0 && sum < minSum) minSum = sum;
                 });
