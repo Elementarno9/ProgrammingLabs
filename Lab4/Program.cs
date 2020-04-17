@@ -1,10 +1,13 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
+using System.Collections.Generic;
 
 namespace Lab4
 {
     class Program
     {
+        static readonly char[] bad_symbols = { '.', ',', '\t', '\n', '\r', ')', '(', '!', '@', '#', '$', '%', '^', '&', '*', '\"', '№', ':', ';', '?', '/', '\\', '|', '<', '>' };
         const int maxLength = 4;
 
         static void Main(string[] args)
@@ -44,9 +47,10 @@ namespace Lab4
         static int CountWords(string line, int maxLength = 4)
         {
             int count = 0;
-            foreach (var word in line.Split())
+            bad_symbols.ToList().ForEach((ch) => { line = line.Replace(ch, ' '); });
+            foreach (var word in line.Split().Where((s) => !string.IsNullOrWhiteSpace(s)))
             {
-                if (word.Length <= maxLength) count++;
+                if (!string.IsNullOrWhiteSpace(word) && word.Length <= maxLength) count++;
             }
             return count;
         }   
