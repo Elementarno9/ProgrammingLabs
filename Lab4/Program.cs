@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 
 namespace Lab4
 {
@@ -47,12 +46,19 @@ namespace Lab4
         static int CountWords(string line, int maxLength = 4)
         {
             int count = 0;
-            bad_symbols.ToList().ForEach((ch) => { line = line.Replace(ch, ' '); });
-            foreach (var word in line.Split().Where((s) => !string.IsNullOrWhiteSpace(s)))
+            int buffer = 0;
+
+            for (int i = 0; i < line.Length; i++)
             {
-                if (!string.IsNullOrWhiteSpace(word) && word.Length <= maxLength) count++;
+                if (line[i] != ' ' && !bad_symbols.Contains(line[i])) buffer++;
+                else
+                {
+                    if (buffer > 0 && buffer <= maxLength) count++;
+                    buffer = 0;
+                }
             }
+
             return count;
-        }   
+        }
     }
 }
